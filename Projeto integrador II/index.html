@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão Eficiente de Tarefas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+      <h1>Gestão Eficiente de Tarefas</h1>
+      <p>Organize, priorize e acompanhe suas tarefas em equipe.</p>
+    </header>
+    <main>
+      <form @submit.prevent="adicionarTarefa">
+        <input v-model="novaTarefa" type="text" placeholder="Digite a tarefa" required aria-label="Nova tarefa">
+        <select v-model="prioridade">
+          <option value="Baixa">Baixa prioridade</option>
+          <option value="Média">Média prioridade</option>
+          <option value="Alta">Alta prioridade</option>
+        </select>
+        <button type="submit">Adicionar</button>
+      </form>
+      <section v-if="tarefas.length">
+        <h2>Tarefas</h2>
+        <ul>
+          <li v-for="(tarefa, index) in tarefas" :key="index" :class="'prioridade-' + tarefa.prioridade.toLowerCase()">
+            <span>
+              <strong>[{{ tarefa.prioridade }}]</strong> {{ tarefa.nome }}
+            </span>
+            <button @click="removerTarefa(index)" aria-label="Remover tarefa">Remover</button>
+          </li>
+        </ul>
+      </section>
+      <p v-else>Nenhuma tarefa cadastrada.</p>
+    </main>
+    <footer>
+      <small>Solução desenvolvida para XMD Máquinas — UFMS 2025</small>
+    </footer>
+  </div>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
